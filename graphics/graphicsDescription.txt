@@ -1,0 +1,5 @@
+There are a total of 9 different sprites. Each sprite has four different positions: masked, folded, reaching, and
+unmasked. Masked is with arms to their sides with a mask on. Folded is with their arms folded forward (making them
+look shorter), with their masks on. Reaching is with their arms aimed toward their equipped masks. Unmasked is with
+their arms to their sides without a mask on. Using the sprites in that order should give the appearance of the sprites
+taking off their masks.
