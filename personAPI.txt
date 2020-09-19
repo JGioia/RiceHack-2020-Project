@@ -1,0 +1,14 @@
+__init__(self, pos, sprite, p_misbehave)
+creates a new person with position pos (2-tuple), an image sprite, and a float p_misbehave
+
+tick(self, nbr)
+updates the person; nbr is the closest person in the level
+
+get_pos(self)
+returns 2-tuple representing position
+
+get_is_misbehaving(self)
+returns a boolean representing the person is misbehaving
+
+fix_behavior(self)
+fixes the behavior of the person
