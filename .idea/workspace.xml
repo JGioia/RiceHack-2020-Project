@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="c906df0b-206e-45f3-87c5-7027eb6e6fa4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/RiceHack-2020-Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/RiceHack-2020-Project.iml" afterDir="false" />
