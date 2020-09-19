@@ -1,5 +1,14 @@
-__init__(self, pos, sprite, p_misbehave)
-creates a new person with position pos (2-tuple), an image sprite, and a float p_misbehave
+Constants that represent behavior:
+BEHAVING
+MISCHIEF
+HALF_MASK
+NO_MASK
+SNEEZING
+FEVER
+
+__init__(self, pos, sprite, behavior_dict)
+creates a new person with position pos (2-tuple), an image sprite, and a dictionary that maps behavior types to floats
+representing the probability of each
 
 tick(self, nbr)
 updates the person; nbr is the closest person in the level

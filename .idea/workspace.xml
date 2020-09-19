@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c906df0b-206e-45f3-87c5-7027eb6e6fa4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/RiceHack-2020-Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/RiceHack-2020-Project.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/person.py" beforeDir="false" afterPath="$PROJECT_DIR$/person.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/personAPI.txt" beforeDir="false" afterPath="$PROJECT_DIR$/personAPI.txt" afterDir="false" />
