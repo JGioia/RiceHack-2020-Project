@@ -6,9 +6,9 @@ NO_MASK
 SNEEZING
 FEVER
 
-__init__(self, pos, sprite, behavior_dict)
+__init__(self, pos, sprite, behavior_dict, screen_size)
 creates a new person with position pos (2-tuple), an image sprite, and a dictionary that maps behavior types to floats
-representing the probability of each
+representing the probability of each, screen_size, a tuple containing the bounds of the room
 
 tick(self, nbr)
 updates the person; nbr is the closest person in the level

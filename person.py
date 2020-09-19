@@ -1,3 +1,4 @@
+import pygame
 import os
 import random
 import math
@@ -19,7 +20,7 @@ class Person:
 
     MOVE_CHANCE = 0.4
     STOP_CHANCE = 0.4
-    MAX_SPEED = 1
+    MAX_SPEED = 10
 
     BEHAVING = 0
     MISCHIEF = 1
@@ -28,7 +29,7 @@ class Person:
     SNEEZING = 4
     FEVER = 5
 
-    def __init__(self, pos: tuple, sprite: str, behavior_dict: dict):
+    def __init__(self, pos: tuple, sprite: str, behavior_dict: dict, screen_size: tuple):
         self._timer = 0
         self._pos = pos
         self._sprite = sprite
@@ -36,18 +37,30 @@ class Person:
         self._behavior_type = Person.BEHAVING
         self._direction = (0, 0)
         self._speed = 0
+        self._bounds = screen_size
 
     def tick(self, nbr):
         self._timer -= 1
         if self._timer <= 0:
-            self._behavior_type = self._determine_behavior()
+            if self._behavior_type == Person.BEHAVING:
+                self._behavior_type = self._determine_behavior()
             self._determine_direction(nbr)
             self._timer = random.randrange(Person.MIN_ACTION_TIME, Person.MAX_ACTION_TIME)
         self._move()
 
     def _move(self):
         self._pos = (self._pos[0] + self._direction[0] * self._speed, self._pos[1] + self._direction[1] * self._speed)
-        # TODO check if out of bounds and move back in bounds
+        x = self._pos[0]
+        y = self._pos[1]
+        if x < 0:
+            x = 0
+        if x > self._bounds[0]:
+            x = self._bounds[0]
+        if y < 0:
+            y = 0
+        if y > self._bounds[0]:
+            y = self._bounds[0]
+        self._pos = (x, y)
 
     def _determine_behavior(self):
         rand_val = random.random()
@@ -83,7 +96,7 @@ class Person:
             self._direction = normalize(direct)
 
     def get_pos(self):
-        return self._pos
+        return tuple(int(x) for x in self._pos)
 
     def get_is_misbehaving(self):
         return self._behavior_type <= 1
@@ -100,12 +113,12 @@ class Person:
 
 
 # test_behavior = {Person.BEHAVING: .7, Person.MISCHIEF: .3}
-# a = Person((0, 0), "a", test_behavior)
-# b = Person((1, 0), "a", test_behavior)
+# a = Person((0, 0), "a", test_behavior, (750, 750))
+# b = Person((1, 0), "a", test_behavior, (750, 750))
 # def reset_timer():
 #     a.tick(b)
 #     b.tick(a)
 #     threading.Timer(0.01, lambda: reset_timer()).start()
 # reset_timer()
 # while True:
-#     print(a.get_pos(), a._speed)
+#     print(a.get_pos(), b.get_pos())
