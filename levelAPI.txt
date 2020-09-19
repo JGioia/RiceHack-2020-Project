@@ -1,0 +1,30 @@
+Level API
+
+tick:
+Records the behavior of all the Person's in the level, in particular recording any violations are occuring.
+
+getPeople:
+Returns the field self.People, which is the array of all the People Objects in Level.
+
+restartViolation:
+Sets all the time for each
+
+fixAllBehaviors:
+Takes each Person Object in Level and resets it behavior to starting behavior
+
+checkViolations:
+Decreases the number of lives if a violation has occured for more than vioTime.
+Otherwise, it continues to run until a violation has occured or until the level has terminated.
+
+checkLost:
+Returns True if lives = 0, False otherwise.
+
+checkWin:
+Returns True if lives != 0 and the time elapsed is levelTime.
+
+checkDistanceViolation:
+Returns True if the distance between Person and the closest Person is less than vioRange
+
+closestToPerson:
+For a Person object, it determines the Person object that is closest to it.
+Returns the Person object that is closest to it and the distance between them.
