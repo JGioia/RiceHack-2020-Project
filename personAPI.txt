@@ -21,3 +21,9 @@ returns a boolean representing the person is misbehaving
 
 fix_behavior(self)
 fixes the behavior of the person
+
+get_sprite(self)
+returns a string representing the current sprite
+
+get_condition(self)
+returns the current behavior of the person
