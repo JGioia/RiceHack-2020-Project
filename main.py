@@ -1,3 +1,4 @@
+import sys
 import pygame
 import os
 # from menu import Menu
@@ -19,7 +20,7 @@ BACKGROUND_LEVEL_1 = pygame.image.load(os.path.join("graphics", "placeholder_bac
 def main():
     # initialize variables
     run = True
-    FPS = 60
+    FPS = 30
     # level_num = 1
     # level_dict = {1: (10, 0.1), 2: (15, 0.15)}  # maps level numbers to level object initiations
     # level = Level(level_dict[level_num][0], level_dict[level_num][1])
@@ -67,6 +68,12 @@ def main():
         sprites.append(decode_sprite(person_a.get_sprite(), person_a.get_pos()))
         sprites.append(decode_sprite(person_b.get_sprite(), person_b.get_pos()))
 
+        # FPS counter
+        fps = str(int(clock.get_fps()))
+        fps_text = main_font.render(fps, 1, pygame.Color("coral"))
+        textRect = fps_text.get_rect()
+        sprites.append((fps_text, textRect))
+
         for sprite in sprites:
             WINDOW.blit(sprite[0], sprite[1])
 
@@ -80,11 +87,12 @@ def main():
         return 0
 
     while run:
+
         # tick
         clock.tick(FPS)
 
         # check what has been clicked on
-        clicked = clicked_on()
+        # clicked = clicked_on()
 
         # check if lost/won level
         # if scene == "Level":
@@ -114,5 +122,8 @@ def main():
 
         redraw_window()
 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
 
 main()
