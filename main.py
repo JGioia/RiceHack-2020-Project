@@ -39,7 +39,7 @@ def main():
             sprites.append(decode_sprite(level.get_background_name()))
 
             # get people
-            for person in Level.get_people():
+            for person in level.get_people():
                 sprites.append(decode_sprite(person.get_sprite_name(), person.get_sprite_type(), person.get_position()))
 
             # get text
@@ -47,7 +47,7 @@ def main():
 
         if scene == "Menu":
             # get background
-            sprites.append(decode_sprite(Menu.get_background()))
+            sprites.append(decode_sprite(menu.get_background()))
 
             # get rest of sprites
 
@@ -92,7 +92,13 @@ def main():
         level.tick()
         menu.tick()
 
+        # redraw window
         redraw_window()
+
+        # quit game
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
 
 
 main()
