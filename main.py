@@ -27,31 +27,48 @@ def main():
     scene = "Level"
     sprites = []
 
-    def decode_sprite(string):
-        if string == "Level_Background":
-            return PERSON_1, (0, 0)
+    def decode_sprite(sprite_name, sprite_type=0, pos=(0, 0)):
+        if sprite_name == "Level_Background":
+            return PERSON_1, pos
 
     def redraw_window():
         nonlocal sprites
         sprites = []
         if scene == "Level":
-            sprites.append(decode_sprite(Level.get_background()))
-            # get rest of sprites
+            # get background
+            sprites.append(decode_sprite(level.get_background_name()))
+
+            # get people
+            for person in Level.get_people():
+                sprites.append(decode_sprite(person.get_sprite_name(), person.get_sprite_type(), person.get_position()))
+
+            # get text
+            sprites.append((main_font.render(level.get_text(), 1, (0, 255, 255)), level.get_text_pos()))
+
         if scene == "Menu":
+            # get background
             sprites.append(decode_sprite(Menu.get_background()))
-            # gest rest of sprites
+
+            # get rest of sprites
+
         for sprite in sprites:
             WINDOW.blit(sprite[0], sprite[1])
-        # get text
+
+        pygame.display.update()
 
     def clicked_on():
-        print("hello")
+        if pygame.mouse.get_pressed()[0]:
+            for i in range(len(sprites) - 1, -1, -1):
+                sprite = sprites[i]
+                # check range
+        return 0
 
     while run:
         # tick
         clock.tick(FPS)
 
         # check what has been clicked on
+        clicked = clicked_on()
 
         # check if lost/won level
         if scene == "Level":
