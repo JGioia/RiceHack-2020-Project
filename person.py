@@ -2,7 +2,7 @@ import pygame
 import os
 import random
 import math
-import threading
+# import threading
 
 
 def magnitude(vector):
@@ -125,13 +125,13 @@ class Person:
     def get_condition(self):
         return self._behavior_type
 
-test_behavior = {Person.MISCHIEF: 1}
-a = Person((0, 0), "a", {Person.BEHAVING: 0}, (750, 750))
-b = Person((750, 750), "a", test_behavior, (750, 750))
-def reset_timer():
-    a.tick(b)
-    b.tick(a)
-    threading.Timer(0.01, lambda: reset_timer()).start()
-reset_timer()
-while True:
-     print(a.get_pos(), b.get_pos())
+# test_behavior = {Person.MISCHIEF: 1}
+# a = Person((0, 0), "a", {Person.BEHAVING: 0}, (750, 750))
+# b = Person((750, 750), "a", test_behavior, (750, 750))
+# def reset_timer():
+#     a.tick(b)
+#     b.tick(a)
+#     threading.Timer(0.01, lambda: reset_timer()).start()
+# reset_timer()
+# while True:
+#      print(a.get_pos(), b.get_pos())
