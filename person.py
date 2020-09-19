@@ -2,25 +2,40 @@ import pygame
 import os
 import random
 import math
-# import threading
+import threading
+
+
+def magnitude(vector):
+    return math.sqrt(vector[0] ** 2 + vector[1] ** 2)
 
 
 def normalize(vector):
-    mag = math.sqrt(vector[0] ** 2 + vector[1] ** 2)
+    mag = magnitude(vector)
     if mag == 0:
         return vector
     return vector[0] / mag, vector[1] / mag
 
 
+def scale(num, vector):
+    return num * vector[0], num * vector[1]
+
+
+def add(vector1, vector2):
+    return vector1[0] + vector2[0], vector1[1] + vector2[1]
+
+
 class Person:
-    MAX_ACTION_TIME = 60
-    MIN_ACTION_TIME = 20
+    MAX_ACTION_TIME = 30
+    MIN_ACTION_TIME = 10
 
-    AVOIDANCE_FACTOR = 0.5
+    MISCHIEF_FACTOR = 0.1
+    AVOIDANCE_FACTOR = -10
+    RANDOM_FACTOR = 0.1
 
-    MOVE_CHANCE = 0.4
-    STOP_CHANCE = 0.4
-    MAX_SPEED = 10
+    MOVE_CHANCE = 0.01
+    STOP_CHANCE = 0.01
+    MIN_SPEED = 1
+    MAX_SPEED = 2
 
     BEHAVING = 0
     MISCHIEF = 1
@@ -38,18 +53,23 @@ class Person:
         self._direction = (0, 0)
         self._speed = 0
         self._bounds = screen_size
+        self._last_nbr = None
 
     def tick(self, nbr):
         self._timer -= 1
         if self._timer <= 0:
             if self._behavior_type == Person.BEHAVING:
                 self._behavior_type = self._determine_behavior()
-            self._determine_direction(nbr)
             self._timer = random.randrange(Person.MIN_ACTION_TIME, Person.MAX_ACTION_TIME)
+        self._determine_direction(nbr)
+        if self._speed == 0 and random.random() < Person.MOVE_CHANCE:
+            self._start()
+        elif self._speed != 0 and random.random() < Person.STOP_CHANCE:
+            self._stop()
         self._move()
 
     def _move(self):
-        self._pos = (self._pos[0] + self._direction[0] * self._speed, self._pos[1] + self._direction[1] * self._speed)
+        self._pos = add(self._pos, self._direction)
         x = self._pos[0]
         y = self._pos[1]
         if x < 0:
@@ -62,6 +82,12 @@ class Person:
             y = self._bounds[0]
         self._pos = (x, y)
 
+    def _start(self):
+        self._speed = random.random() * (Person.MAX_SPEED - Person.MIN_SPEED) + Person.MIN_SPEED
+
+    def _stop(self):
+        self._speed = 0
+
     def _determine_behavior(self):
         rand_val = random.random()
         prob_sum = 0
@@ -72,28 +98,17 @@ class Person:
         return Person.BEHAVING
 
     def _determine_direction(self, nbr):
-        direct = (0, 0)
-        if self._speed == 0:
-            if random.random() < Person.MOVE_CHANCE:
-                self._speed = random.random() * Person.MAX_SPEED
-            else:
-                direct = self._direction
-        if self._speed > 0:
-            if random.random() < Person.STOP_CHANCE:
-                self._speed = 0
-            else:
-                angle = random.random() * 2 * math.pi
-                direct = (math.cos(angle), math.sin(angle))
-        if self._speed > 0:
-            nbr_direct = (nbr.get_pos()[0] - self._pos[0], nbr.get_pos()[1] - self._pos[1])
-            nbr_direct = normalize(nbr_direct)
+        direct = self._direction
+        angle = random.random() * 2 * math.pi
+        rand_direct = (math.cos(angle), math.sin(angle))
+        nbr_direct = add(nbr.get_pos(), scale(-1, self._pos))
+        direct = add(direct, scale(Person.RANDOM_FACTOR, rand_direct))
+        if magnitude(nbr_direct) != 0:
             if self._behavior_type == Person.MISCHIEF:
-                direct = (direct[0] + Person.AVOIDANCE_FACTOR * nbr_direct[0],
-                          direct[1] + Person.AVOIDANCE_FACTOR * nbr_direct[1])
+                direct = add(direct, scale(Person.MISCHIEF_FACTOR, normalize(nbr_direct)))
             else:
-                direct = (direct[0] - Person.AVOIDANCE_FACTOR * nbr_direct[0],
-                          direct[1] - Person.AVOIDANCE_FACTOR * nbr_direct[1])
-            self._direction = normalize(direct)
+                direct = add(direct, scale(Person.AVOIDANCE_FACTOR / magnitude(nbr_direct) ** 2, nbr_direct))
+        self._direction = normalize(direct)
 
     def get_pos(self):
         return tuple(int(x) for x in self._pos)
@@ -110,15 +125,13 @@ class Person:
     def get_condition(self):
         return self._behavior_type
 
-
-
-# test_behavior = {Person.BEHAVING: .7, Person.MISCHIEF: .3}
-# a = Person((0, 0), "a", test_behavior, (750, 750))
-# b = Person((1, 0), "a", test_behavior, (750, 750))
-# def reset_timer():
-#     a.tick(b)
-#     b.tick(a)
-#     threading.Timer(0.01, lambda: reset_timer()).start()
-# reset_timer()
-# while True:
-#     print(a.get_pos(), b.get_pos())
+test_behavior = {Person.MISCHIEF: 1}
+a = Person((0, 0), "a", {Person.BEHAVING: 0}, (750, 750))
+b = Person((750, 750), "a", test_behavior, (750, 750))
+def reset_timer():
+    a.tick(b)
+    b.tick(a)
+    threading.Timer(0.01, lambda: reset_timer()).start()
+reset_timer()
+while True:
+     print(a.get_pos(), b.get_pos())
