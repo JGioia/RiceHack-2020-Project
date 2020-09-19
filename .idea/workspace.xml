@@ -2,16 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c906df0b-206e-45f3-87c5-7027eb6e6fa4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/graphics/graphicsDescription.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graphics/menuDescription.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/level.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/levelAPI.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mainAPI.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/menu.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/menuAPI.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/person.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/personAPI.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/placeholder_person.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/placeholder_person2.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mainAPI.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mainAPI.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +26,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
@@ -46,5 +42,14 @@
       <updated>1600490031074</updated>
     </task>
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1600535236150">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1600535236150" />
   </component>
 </project>
