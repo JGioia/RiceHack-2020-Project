@@ -2,14 +2,14 @@ import pygame
 import os
 import random
 import time
+from math import sqrt
 import math
-# Need to figure out if I need to take this out.....
 from person import Person
 
 
 class Level:
 
-    def __init__(self, numPeople, vioTime, spriteList, size, lives, levelTime, vioRange, behavior_dict):
+    def __init__(self, numPeople, vioTime, spriteList, size, lives, levelTime, vioRange, behavior_dict, peoSize:tuple):
         self.numPeople = numPeople
         self.vioTime = vioTime
         self.size = size  # Will size be given as a tuple, if so just change to include
@@ -20,6 +20,7 @@ class Level:
         self.people = []
         self.violators = {}
         self.vioRange = vioRange
+        self.peoSize = peoSize
 
         for i in range(0, self.numPeople):
             # Once we know size of sprite we can adjust x_pos, so they can't be off screen
@@ -35,7 +36,7 @@ class Level:
 
     def tick(self):
         for person in range(0, self.numPeople):
-            closestPer = self.closestToPerson(person)
+            closestPer = self.closestToPerson(self.people[person])
 
             (self.people[person]).tick(closestPer[0])
             self.checkViolations()
@@ -92,7 +93,10 @@ class Level:
         closestPer = personIndex - 1
         closestPerX = (self.people[closestPer]).get_pos()[0]
         closestPerY = (self.people[closestPer]).get_pos()[1]
-        closestDistance = math.sqrt((closestPerX - personPosX) ** 2 + (closestPerY - personPosY) ** 2)
+
+        X_val = ((closestPerX + self.peoSize[0] // 2) - (personPosX + self.peoSize[0] // 2))**2
+        Y_val = ((closestPerY + self.peoSize[0] // 2) - (personPosY + self.peoSize[1] // 2))**2
+        closestDistance = sqrt(X_val + Y_val)
 
         for neighbor in range(0, self.numPeople):
 
@@ -102,11 +106,11 @@ class Level:
             else:
                 neighX = (self.people[neighbor]).get_pos()[0]
                 neighY = (self.people[neighbor]).get_pos()[1]
-                Distance = math.sqrt((neighX - personPosX) ** 2 + (neighY - personPosY) ** 2)
+                Distance = sqrt((neighX - personPosX) ** 2 + (neighY - personPosY) ** 2)
 
                 if Distance < closestDistance:
                     closestPer = neighbor
-                    closestDistance = math.sqrt((neighX - personPosX) ** 2 + (neighY - personPosY) ** 2)
+                    closestDistance = sqrt((neighX - personPosX) ** 2 + (neighY - personPosY) ** 2)
 
         return self.people[closestPer], closestDistance
 
