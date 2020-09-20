@@ -125,6 +125,9 @@ class Person:
     def get_condition(self):
         return self._behavior_type
 
+    def clicked_on(self):
+        return self.fix_behavior()
+
 # test_behavior = {Person.MISCHIEF: 1}
 # a = Person((0, 0), "a", {Person.BEHAVING: 0}, (750, 750))
 # b = Person((750, 750), "a", test_behavior, (750, 750))
