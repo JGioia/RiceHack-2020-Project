@@ -32,13 +32,13 @@ def main():
     sprite_list = ["a", "b"]
     starting_lives = 3
     level_time = 30
-    vio_range = 0
+    vio_range = 100
     behavior_dict = {0: 0.1}
     level_num = 1
     num_people_dict = {1: 10, 2: 15}
     vio_time = 5
-    level = Level(num_people_dict[level_num], vio_time, PEOPLE_NAMES, SCREEN_SIZE, starting_lives,
-                  level_time, vio_range, behavior_dict)
+    level = Level(num_people_dict[level_num], vio_range, PEOPLE_NAMES, SCREEN_SIZE, starting_lives,
+                  level_time, vio_time, behavior_dict)
     # menu = Menu()
     clock = pygame.time.Clock()
     main_font = pygame.font.SysFont("comicsans", 50)
