@@ -69,7 +69,7 @@ class Person:
         self._move()
 
     def _move(self):
-        self._pos = add(self._pos, self._direction)
+        self._pos = add(self._pos, scale(self._speed, self._direction))
         x = self._pos[0]
         y = self._pos[1]
         if x < 0:
@@ -78,8 +78,8 @@ class Person:
             x = self._bounds[0]
         if y < 0:
             y = 0
-        if y > self._bounds[0]:
-            y = self._bounds[0]
+        if y > self._bounds[1]:
+            y = self._bounds[1]
         self._pos = (x, y)
 
     def _start(self):
@@ -114,7 +114,7 @@ class Person:
         return tuple(int(x) for x in self._pos)
 
     def get_is_misbehaving(self):
-        return self._behavior_type <= 1
+        return self._behavior_type > 1
 
     def fix_behavior(self):
         self._behavior_type = 0
@@ -128,6 +128,7 @@ class Person:
         return self._behavior_type
 
     def clicked_on(self):
+        self._start()
         return self.fix_behavior()
 
 # test_behavior = {Person.MISCHIEF: 1}

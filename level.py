@@ -55,9 +55,10 @@ class Level:
     def checkViolations(self):
 
         for person in range(0, self.numPeople):
-
             if (self.people[person].get_is_misbehaving()) or (self.checkDistanceViolation(person)):
                 self.violators[person] += 1 / 60  # Need fix this, maybe request time in a tic.
+            else:
+                self.violators[person] = 0
 
             if (self.violators[person] >= self.vioTime):
                 self.lives -= 1
@@ -79,7 +80,6 @@ class Level:
 
     def checkDistanceViolation(self, personIndex):
         closest = self.closestToPerson(personIndex)
-
         if closest[1] <= self.vioRange:
             return True
         else:
@@ -115,4 +115,4 @@ class Level:
         return self.people[closestPer], closestDistance
 
     def getText(self):
-        return "Lives: " + str(self.lives), (0, 0)
+        return "Lives: " + str(self.lives) + "                 Time: " + str(self.levelTime - time.time() + self.startTime)[:4], (0, 0)

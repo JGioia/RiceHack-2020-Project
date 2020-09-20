@@ -3,10 +3,11 @@ import os
 # from menu import Menu
 from level import Level
 from person import Person
+from menu import Menu
 
 # create window
 pygame.font.init()
-SCREEN_SIZE = (750, 750)
+SCREEN_SIZE = (1280, 720)
 WINDOW = pygame.display.set_mode(SCREEN_SIZE)
 pygame.display.set_caption("Fun game")  # change this later
 
@@ -20,8 +21,8 @@ for person_name in PEOPLE_NAMES:
                                                                              "masked.png")), PERSON_SIZE))
     PERSON_IMGS.append([])
     PERSON_IMGS.append(pygame.transform.scale(pygame.image.load(os.path.join("graphics", "Wrongly Masked Sprites",
-                                                                              person_name + "maskedincorrectly.png")),
-                                               PERSON_SIZE))
+                                                                             person_name + "maskedincorrectly.png")),
+                                              PERSON_SIZE))
     PERSON_IMGS.append(pygame.transform.scale(pygame.image.load(os.path.join("graphics", "Unmasked Sprites", person_name
                                                                              + "unmasked.png")), PERSON_SIZE))
     PERSON_IMGS.append(pygame.transform.scale(pygame.image.load(os.path.join("graphics", "Coughing Sprites", person_name
@@ -32,7 +33,23 @@ for person_name in PEOPLE_NAMES:
 
 PERSON_1 = pygame.transform.scale(pygame.image.load(os.path.join("graphics", "placeholder_person.jpg")), SCREEN_SIZE)
 PERSON_2 = pygame.image.load(os.path.join("graphics", "placeholder_person2.jpg"))
+MENU_BACKGROUND = pygame.transform.scale(pygame.image.load(os.path.join("graphics", "Menu Sprites",
+                                                                        "Menu Background.png")), SCREEN_SIZE)
 
+DOOR_SIZES = [(287, 500), (241, 420), (206, 360), (172, 300)]
+DOOR_POSITIONS = [(10, 215), (340, 251), (608, 279), (830, 307)]
+OPEN_DOORS = []
+CLOSED_DOORS = []
+for i in range(4):
+    OPEN_DOORS.append(
+        pygame.transform.scale(pygame.image.load(os.path.join("graphics", "Menu Sprites", "Menu Door Open.png")),
+                               DOOR_SIZES[i]))
+    CLOSED_DOORS.append(
+        pygame.transform.scale(pygame.image.load(os.path.join("graphics", "Menu Sprites", "Menu Door Closed.png")),
+                               DOOR_SIZES[i]))
+STAIRS_SIZE = (250, 250)
+STAIRS = pygame.transform.scale(pygame.image.load(os.path.join("graphics", "Menu Sprites", "Stairs.png")), STAIRS_SIZE)
+STAIRS_POS = (1050, 335)
 
 def main():
     # initialize variables
@@ -42,17 +59,22 @@ def main():
     starting_lives = 3
     level_time = 30
     vio_range = 100
-    behavior_dict = {Person.MISCHIEF: 0.1, Person.NO_MASK: 0.1}
+    behavior_dict_list = [None, {Person.MISCHIEF: 0.05}, {Person.NO_MASK: 0.05}, {Person.HALF_MASK: 0.05},
+                          {Person.SNEEZING: 0.05}, {Person.FEVER: 0.1}, {Person.MISCHIEF: 0.1, Person.NO_MASK: 0.1},
+                          {Person.HALF_MASK: 0.1, Person.SNEEZING: 0.1}, {Person.MISCHIEF: 0.1, Person.FEVER: 0.1},
+                          {Person.MISCHIEF: 0.05, Person.NO_MASK: 0.05, Person.HALF_MASK: 0.05, Person.SNEEZING: 0.05,
+                           Person.FEVER: 0.05}]
+    behavior_dict = {}
     level_num = 1
     num_people_dict = {1: 10, 2: 15}
     vio_time = 5
-    level_size = (SCREEN_SIZE[0] - PERSON_SIZE[0] + 10, SCREEN_SIZE[1] - PERSON_SIZE[1] + 10)
-    level = Level(num_people_dict[level_num], vio_range, PEOPLE_NAMES, level_size, starting_lives,
-                  level_time, vio_time, behavior_dict, PERSON_SIZE)
-    # menu = Menu()
+    level_size = (SCREEN_SIZE[0] - PERSON_SIZE[0] - 20, SCREEN_SIZE[1] - PERSON_SIZE[1] - 10)
+    level = Level(num_people_dict[level_num], vio_time, PEOPLE_NAMES, level_size, starting_lives,
+                  level_time, vio_range, behavior_dict, PERSON_SIZE)
+    menu = Menu(("Door 0", "Door 1", "Door 2", "Door 3"), "Stairs")
     clock = pygame.time.Clock()
     main_font = pygame.font.SysFont("comicsans", 50)
-    scene = "Level"
+    scene = "Menu"
     sprites = []
     sprite_objs = []
 
@@ -60,11 +82,17 @@ def main():
         if sprite_name == "Level_Background":
             return PERSON_1, pos
         elif sprite_name == "Menu_Background":
-            return PERSON_1, pos
+            return MENU_BACKGROUND, pos
         elif sprite_name == "a":
             return PERSON_1, pos
         elif sprite_name == "b":
             return PERSON_2, pos
+        elif sprite_name == "Stairs":
+            return STAIRS, STAIRS_POS
+        elif sprite_name[:4] == "Door":
+            return OPEN_DOORS[int(sprite_name[-1:])], pos
+        elif sprite_name[:6] == "Closed":
+            return CLOSED_DOORS[int(sprite_name[-1:])], pos
         else:
             return PEOPLE_IMGS[PEOPLE_NAMES.index(sprite_name)][sprite_type], pos
 
@@ -81,7 +109,7 @@ def main():
             for person in level.getPeople():
                 sprites.append(decode_sprite(person.get_sprite(), person.get_pos(), person.get_condition()))
                 sprite_objs.append(person)
-                person_center = (person.get_pos()[0] + PERSON_SIZE[0]//2, person.get_pos()[1] + PERSON_SIZE[1]//2)
+                person_center = (person.get_pos()[0] + PERSON_SIZE[0] // 2, person.get_pos()[1] + PERSON_SIZE[1] // 2)
                 pygame.draw.circle(WINDOW, (0, 200, 131), person_center, 100, 10)
 
             # get text
@@ -92,7 +120,15 @@ def main():
             # get background
             sprites.append(decode_sprite("Menu_Background"))
             sprite_objs.append(0)
-
+            for i in range(4):
+                if menu.get_is_completed("Door " + str(i)):
+                    sprites.append(decode_sprite("Closed " + str(i), DOOR_POSITIONS[i]))
+                    sprite_objs.append((menu, "Door " + str(i)))
+                else:
+                    sprites.append(decode_sprite("Door " + str(i), DOOR_POSITIONS[i]))
+                    sprite_objs.append((menu, "Door " + str(i)))
+            sprites.append(decode_sprite("Stairs"))
+            sprite_objs.append((menu, "Stairs"))
             # get rest of sprites
 
         for sprite in sprites:
@@ -109,8 +145,12 @@ def main():
                 if ((sprite_objs[i] != 0 and mouse_x >= sprite[1][0] and mouse_y >= sprite[1][1]) and
                         (mouse_x <= sprite[1][0] + sprite[0].get_width() and mouse_y <= sprite[1][1] +
                          sprite[0].get_height())):
-                    sprite_objs[i].clicked_on()
+                    if type(sprite_objs[i]) == type((0, 0)):
+                        menu.clicked_on(sprite_objs[i][1])
+                    else:
+                        sprite_objs[i].clicked_on()
                     pass
+
         pass
 
     while run:
@@ -123,16 +163,18 @@ def main():
         # check if lost/won level
         if scene == "Level":
             if level.checkLost():
-                scene = "menu"
+                scene = "Menu"
             if level.checkWin():
-                scene = "menu"
+                scene = "Menu"
+                menu.unlock_next_level()
                 # menu.unlock_next_level()
 
         # check if selected level
-        # if scene == "Menu" and menu.selected_level() != 0:
-        #     level_num = menu.selected_level()
-        #     level = Level(level_dict[level_num][0], level_dict[level_num][1])
-        #     scene = "level"
+        if scene == "Menu" and menu.selected_level() != 0:
+            level_num = menu.selected_level()
+            level = Level(level_num // 4 + 2, vio_time, PEOPLE_NAMES, level_size, 3, 30, vio_range,
+                          behavior_dict_list[min(level_num, len(behavior_dict_list) - 1)], PERSON_SIZE)
+            scene = "Level"
 
         # tick level and menu objects
         if scene == "Level":
