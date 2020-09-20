@@ -3,15 +3,16 @@ import os
 import random
 import time
 from math import sqrt
-#Need to figure out if I need to take this out.....
+import math
 from person import Person
+
 
 class Level:
 
     def __init__(self, numPeople, vioTime, spriteList, size, lives, levelTime, vioRange, behavior_dict, peoSize:tuple):
         self.numPeople = numPeople
         self.vioTime = vioTime
-        self.size = size # Will size be given as a tuple, if so just change to include
+        self.size = size  # Will size be given as a tuple, if so just change to include
         # index in the following functions
         self.lives = lives
         self.levelTime = levelTime
@@ -25,9 +26,9 @@ class Level:
             # Once we know size of sprite we can adjust x_pos, so they can't be off screen
             # Top left corner of sprite is position
             x_pos = random.randint(0, self.size[0])
-            y_pos = random.randint(self.size[1]//25, self.size[1]//(6/5))
+            y_pos = random.randint(self.size[1] // 25, self.size[1] // (6 / 5))
 
-            self.people[i] = Person((x_pos, y_pos), random.choice(spriteList), behavior_dict, size)
+            self.people.append(Person((x_pos, y_pos), random.choice(spriteList), behavior_dict, size))
 
         # The initial setup for the violation times for each person object
         for person in range(0, self.numPeople):
@@ -56,8 +57,7 @@ class Level:
         for person in range(0, self.numPeople):
 
             if (self.people[person].get_is_misbehaving()) or (self.checkDistanceViolation(self.people[person])):
-                self.violators[person] += 1/60 # Need fix this, maybe request time in a tic.
-
+                self.violators[person] += 1 / 60  # Need fix this, maybe request time in a tic.
 
             if (self.violators[person] >= self.vioTime):
                 self.lives -= 1
@@ -65,33 +65,32 @@ class Level:
                 self.fixAllBehaviors()
                 break
 
-
     def checkLost(self):
-        if self.lives == 0:
+        if self.lives <= 0:
             return True
         else:
             return False
 
     def checkWin(self):
-        if (self.lives != 0) and (time.time() - self.startTime >= self.levelTime):
+        if (self.lives > 0) and (time.time() - self.startTime >= self.levelTime):
             return True
         else:
             return False
 
-    def checkDistanceViolation(self, person):
-            closest = self.closestToPerson(person)
+    def checkDistanceViolation(self, personIndex):
+        closest = self.closestToPerson(personIndex)
 
-            if closest[1] <= self.vioRange:
-                return True
-            else:
-                return False
+        if closest[1] <= self.vioRange:
+            return True
+        else:
+            return False
 
-    def closestToPerson(self, person):
+    def closestToPerson(self, personIndex):
 
-        personPosX = (self.people[person]).get_pos()[0]
-        personPosY = (self.people[person]).get_pos()[1]
+        personPosX = (self.people[personIndex]).get_pos()[0]
+        personPosY = (self.people[personIndex]).get_pos()[1]
 
-        closestPer = person - 1
+        closestPer = personIndex - 1
         closestPerX = (self.people[closestPer]).get_pos()[0]
         closestPerY = (self.people[closestPer]).get_pos()[1]
 
@@ -101,7 +100,7 @@ class Level:
 
         for neighbor in range(0, self.numPeople):
 
-            if neighbor == person:
+            if neighbor == personIndex:
                 continue
 
             else:
@@ -115,3 +114,5 @@ class Level:
 
         return self.people[closestPer], closestDistance
 
+    def getText(self):
+        return "Lives: " + str(self.lives), (0, 0)
