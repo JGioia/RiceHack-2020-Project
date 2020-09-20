@@ -15,7 +15,7 @@ class Menu:
     def unlock_next_level(self):
         if self._selected_door != None:
             self._cleared[self._selected_door] = True
-            self._selected_door = 0
+            self._selected_door = None
 
     def selected_level(self):
         return self._floor * 4 + self._nums[self._selected_door] if (self._selected_door is not None) else 0
