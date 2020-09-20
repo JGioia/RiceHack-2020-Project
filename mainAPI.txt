@@ -1,1 +1,9 @@
-This can really be more a description of how main
+This is more a description of how main works because main.py does not contain any classes.
+
+main creates the window, loads all of the images that will need to be used into memory, and then runs the main function.
+The main function sets the level counter, fps, creates the menu object, creates the level object, and keeps track of
+which scene we are on. Every tick main checks if the player lost the level, tells the level and menu objects what scene
+we are on, tells if an object has been clicked on, and calls redraw_window. redraw_window gets all of the sprites, their
+position, size, and visibility from the level and menu objects and draws them at the appropriate locations.
+
+We will have to update all of the method names that we referred to with what they actually are going to be.
