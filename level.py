@@ -36,7 +36,7 @@ class Level:
 
     def tick(self):
         for person in range(0, self.numPeople):
-            closestPer = self.closestToPerson(self.people[person])
+            closestPer = self.closestToPerson(person)
 
             (self.people[person]).tick(closestPer[0])
             self.checkViolations()
@@ -56,7 +56,7 @@ class Level:
 
         for person in range(0, self.numPeople):
 
-            if (self.people[person].get_is_misbehaving()) or (self.checkDistanceViolation(self.people[person])):
+            if (self.people[person].get_is_misbehaving()) or (self.checkDistanceViolation(person)):
                 self.violators[person] += 1 / 60  # Need fix this, maybe request time in a tic.
 
             if (self.violators[person] >= self.vioTime):

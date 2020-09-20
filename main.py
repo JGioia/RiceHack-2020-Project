@@ -2,6 +2,7 @@ import pygame
 import os
 # from menu import Menu
 from level import Level
+from person import Person
 
 # create window
 pygame.font.init()
@@ -17,8 +18,16 @@ for person_name in PEOPLE_NAMES:
     PERSON_IMGS = []
     PERSON_IMGS.append(pygame.transform.scale(pygame.image.load(os.path.join("graphics", "Masked Sprites", person_name +
                                                                              "masked.png")), PERSON_SIZE))
+    PERSON_IMGS.append([])
+    PERSON_IMGS.append(pygame.transform.scale(pygame.image.load(os.path.join("graphics", "Wrongly Masked Sprites",
+                                                                              person_name + "maskedincorrectly.png")),
+                                               PERSON_SIZE))
     PERSON_IMGS.append(pygame.transform.scale(pygame.image.load(os.path.join("graphics", "Unmasked Sprites", person_name
                                                                              + "unmasked.png")), PERSON_SIZE))
+    PERSON_IMGS.append(pygame.transform.scale(pygame.image.load(os.path.join("graphics", "Coughing Sprites", person_name
+                                                                             + "coughing.png")), PERSON_SIZE))
+    PERSON_IMGS.append(pygame.transform.scale(pygame.image.load(os.path.join("graphics", "Feverish Sprites", person_name
+                                                                             + "feverish.png")), PERSON_SIZE))
     PEOPLE_IMGS.append(PERSON_IMGS)
 
 PERSON_1 = pygame.transform.scale(pygame.image.load(os.path.join("graphics", "placeholder_person.jpg")), SCREEN_SIZE)
@@ -33,12 +42,13 @@ def main():
     starting_lives = 3
     level_time = 30
     vio_range = 100
-    behavior_dict = {0: 0.1}
+    behavior_dict = {Person.MISCHIEF: 0.1, Person.NO_MASK: 0.1}
     level_num = 1
     num_people_dict = {1: 10, 2: 15}
     vio_time = 5
-    level = Level(num_people_dict[level_num], vio_range, PEOPLE_NAMES, SCREEN_SIZE, starting_lives,
-                  level_time, vio_time, behavior_dict)
+    level_size = (SCREEN_SIZE[0] - PERSON_SIZE[0] + 10, SCREEN_SIZE[1] - PERSON_SIZE[1] + 10)
+    level = Level(num_people_dict[level_num], vio_range, PEOPLE_NAMES, level_size, starting_lives,
+                  level_time, vio_time, behavior_dict, PERSON_SIZE)
     # menu = Menu()
     clock = pygame.time.Clock()
     main_font = pygame.font.SysFont("comicsans", 50)
@@ -65,13 +75,14 @@ def main():
         sprite_objs = []
         if scene == "Level":
             # get background
-            sprites.append(decode_sprite("Level_Background"))
-            sprite_objs.append(0)
+            WINDOW.blit(decode_sprite("Level_Background")[0], decode_sprite("Level_Background")[1])
 
             # get people
             for person in level.getPeople():
                 sprites.append(decode_sprite(person.get_sprite(), person.get_pos(), person.get_condition()))
                 sprite_objs.append(person)
+                person_center = (person.get_pos()[0] + PERSON_SIZE[0]//2, person.get_pos()[1] + PERSON_SIZE[1]//2)
+                pygame.draw.circle(WINDOW, (0, 200, 131), person_center, 100, 10)
 
             # get text
             sprites.append((main_font.render(level.getText()[0], 1, (0, 255, 255)), level.getText()[1]))

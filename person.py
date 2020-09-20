@@ -123,6 +123,8 @@ class Person:
         return self._sprite
 
     def get_condition(self):
+        if self._behavior_type == 1:
+            return 0
         return self._behavior_type
 
     def clicked_on(self):
