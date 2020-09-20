@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c906df0b-206e-45f3-87c5-7027eb6e6fa4" name="Default Changelist" comment="" />
+    <list default="true" id="c906df0b-206e-45f3-87c5-7027eb6e6fa4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -89,9 +91,9 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.person" />
-      <item itemvalue="Python.person (1)" />
       <item itemvalue="Python.main" />
+      <item itemvalue="Python.person (1)" />
+      <item itemvalue="Python.person" />
     </list>
     <recent_temporary>
       <list>
