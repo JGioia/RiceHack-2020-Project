@@ -50,14 +50,15 @@ for i in range(4):
 STAIRS_SIZE = (250, 250)
 STAIRS = pygame.transform.scale(pygame.image.load(os.path.join("graphics", "Menu Sprites", "Stairs.png")), STAIRS_SIZE)
 STAIRS_POS = (1050, 335)
+BACKGROUND_1 = pygame.transform.scale(pygame.image.load(os.path.join("graphics", "placeholder_background.jpg")), SCREEN_SIZE)
 
 def main():
     # initialize variables
     run = True
     FPS = 60
     sprite_list = ["a", "b"]
-    starting_lives = 3
-    level_time = 30
+    starting_lives = 2
+    level_time = 15
     vio_range = 100
     behavior_dict_list = [None, {Person.MISCHIEF: 0.05}, {Person.NO_MASK: 0.05}, {Person.HALF_MASK: 0.05},
                           {Person.SNEEZING: 0.05}, {Person.FEVER: 0.1}, {Person.MISCHIEF: 0.1, Person.NO_MASK: 0.1},
@@ -80,7 +81,7 @@ def main():
 
     def decode_sprite(sprite_name, pos=(0, 0), sprite_type=0):
         if sprite_name == "Level_Background":
-            return PERSON_1, pos
+            return BACKGROUND_1, pos
         elif sprite_name == "Menu_Background":
             return MENU_BACKGROUND, pos
         elif sprite_name == "a":
@@ -172,7 +173,7 @@ def main():
         # check if selected level
         if scene == "Menu" and menu.selected_level() != 0:
             level_num = menu.selected_level()
-            level = Level(level_num // 4 + 2, vio_time, PEOPLE_NAMES, level_size, 3, 30, vio_range,
+            level = Level(level_num // 4 + 2, vio_time, PEOPLE_NAMES, level_size, starting_lives, level_time, vio_range,
                           behavior_dict_list[min(level_num, len(behavior_dict_list) - 1)], PERSON_SIZE)
             scene = "Level"
 
