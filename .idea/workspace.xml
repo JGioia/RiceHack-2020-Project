@@ -1,7 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c906df0b-206e-45f3-87c5-7027eb6e6fa4" name="Default Changelist" comment="" />
+    <list default="true" id="c906df0b-206e-45f3-87c5-7027eb6e6fa4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/graphics/Coughing Sprites/briancoughing.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/Coughing Sprites/danielcoughing.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/Coughing Sprites/josephcoughing.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/Coughing Sprites/kamicoughing.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/Coughing Sprites/laurencoughing.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/Coughing Sprites/liamcoughing.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/Coughing Sprites/petercoughing.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/Coughing Sprites/stevencoughing.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/Coughing Sprites/yanniecoughing.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/Feverish Sprites/brianfeverish.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/Feverish Sprites/danielfeverish.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/Feverish Sprites/josephfeverish.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/Feverish Sprites/kamifeverish.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/Feverish Sprites/laurenfeverish.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/Feverish Sprites/liamfeverish.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/Feverish Sprites/peterfeverish.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/Feverish Sprites/stevenfeverish.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/Feverish Sprites/yanniefeverish.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/Wrongly Masked Sprites/brianmaskedincorrectly.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/Wrongly Masked Sprites/danielmaskedincorrectly.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/Wrongly Masked Sprites/josephmaskedincorrectly.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/Wrongly Masked Sprites/kamimaskedincorrectly.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/Wrongly Masked Sprites/laurenmaskedincorrectly.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/Wrongly Masked Sprites/liammaskedincorrectly.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/Wrongly Masked Sprites/petermaskedincorrectly.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/Wrongly Masked Sprites/stevenmaskedincorrectly.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphics/Wrongly Masked Sprites/yanniemaskedincorrectly.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -51,7 +80,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1600490031074</updated>
-      <workItem from="1600548637718" duration="1699000" />
+      <workItem from="1600548637718" duration="2166000" />
     </task>
     <servers />
   </component>
