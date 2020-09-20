@@ -22,13 +22,12 @@ class Menu:
 
     def clicked_on(self, button):
         if button == self._stairs:
-            for door in self._cleared:
-                if not self._cleared[door]:
-                    return
+            if not self.get_floor_completed():
+                return
             self._floor += 1
             for door in self._cleared:
                 self._cleared[door] = False
-        if not self._cleared[button]:
+        elif not self._cleared[button]:
             self._selected_door = button
 
     def get_floor(self):
@@ -36,6 +35,12 @@ class Menu:
 
     def get_is_completed(self, door):
         return self._cleared[door]
+
+    def get_floor_completed(self):
+        for door in self._cleared:
+            if not self._cleared[door]:
+                return False
+        return True
 
 
 # menu = Menu(["1", "2", "3", "4"], "Stairs")
